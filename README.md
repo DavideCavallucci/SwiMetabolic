@@ -24,3 +24,8 @@
    ```bash
    git clone [https://github.com/DavideCavallucci/SwiMetabolic.git]
    cd SwiMetabolic
+
+## 🚀 Provala Subito
+
+Essendo un'applicazione client-side pura, la puoi provare a questo indirizzo:
+<a href="https://davidecavallucci.pythonanywhere.com/login"><strong>Vai all'App dei Metabolismi ↗️</strong></a>
