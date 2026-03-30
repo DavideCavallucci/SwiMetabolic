@@ -1,27 +1,26 @@
-# 🤽‍♂️ Lavagna Tattica Pallanuoto
+# 🏊‍♂️ Metabolic Pro | FIN Protocol Edition
 
-Una lavagna tattica digitale di livello professionale per allenatori di pallanuoto. Progettata per essere fluida, responsiva e pronta all'uso a bordo vasca su smartphone, tablet e PC.
+**Metabolic Pro** è un'applicazione web avanzata progettata per allenatori di nuoto professionisti. Il software permette di calcolare le zone di allenamento metabolico basandosi sul **Metodo Differenziale del Protocollo FIN** (Settore Istruzione Tecnica).
 
-## ✨ Caratteristiche Principali
+## 🚀 Caratteristiche Principali
 
-* 📱 **UI/UX Fully Responsive:** Interfaccia ispirata ai migliori software SaaS. Layout adattivo che si trasforma in comode "Cards" su mobile e in una sidebar tecnica su desktop.
-* ✍️ **Motore di Disegno Ibrido:**
+* **Calcolo Differenziale FIN**: Supporto rigoroso per le coppie di test 400-200m e 200-100m.
+* **DNA Performance (Radar Chart)**: Visualizzazione grafica del profilo dell'atleta (Velocità, VO2 Max, Capacità Aerobica).
+* **Gestione Squadra (Roster)**: Database integrato per salvare, caricare ed eliminare gli atleti della propria squadra.
+* **Esportazione Dati**: Generazione istantanea di file CSV compatibili con Excel per l'archiviazione dei test.
+* **Nomenclatura Scientifica**: Zone energetiche aggiornate (A1, Aerobico Adattativo, Soglia, VO2 Max, Tolleranza, Picco di Lattato).
+* **Interfaccia Pro**: Design in Glassmorphism ottimizzato per l'uso su tablet e smartphone a bordo vasca.
+* **Accesso Sicuro**: Area riservata protetta da password per la sicurezza dei dati degli atleti.
 
-  * Disegno a mano libera fluido per indicare le traiettorie di nuotata.
-  * Generatore di **frecce vettoriali intelligenti** per i passaggi e i tiri.
-   
-* 🗂️ **Preset Tattici Integrati:** Cambia scenario con un tap (Es. Uomo in Più, Difesa a Pressing, Difesa a Zona) ricaricando istantaneamente i giocatori nelle posizioni corrette.
-  
-* 💾 **Esportazione HD:** Inserisci il nome dello schema e genera un'immagine PNG in alta risoluzione pronta per essere condivisa su WhatsApp con la squadra.
-    
-## 🛠️ Stack Tecnologico
+## 🛠 Tech Stack
 
-Il progetto è costruito per essere leggerissimo e non richiedere server o database (funziona interamente lato client):
-* **Core Grafico:** [Fabric.js](http://fabricjs.com/) (HTML5 Canvas)
-* **Frontend:** Vanilla JavaScript, HTML5 semantico
-* **Styling:** CSS3 puro con architettura a Variabili Root (CSS Custom Properties), Flexbox e CSS Grid.
+* **Backend**: Python 3.x, Flask
+* **Frontend**: Tailwind CSS, Chart.js, Lucide Icons
+* **Database**: SQLite3
 
-## 🚀 Provala Subito
+## 💻 Installazione Locale
 
-Essendo un'applicazione client-side pura, la puoi provare a questo indirizzo:
-<a href="https://davidecavallucci.github.io/Lavagna-Tattica-PN/"><strong>Vai alla Lavagna Tattica ↗️</strong></a>
+1. Clona il repository:
+   ```bash
+   git clone [https://github.com/TUO_UTENTE/SwimMetabolic-Pro.git](https://github.com/TUO_UTENTE/SwimMetabolic-Pro.git)
+   cd SwimMetabolic-Pro
