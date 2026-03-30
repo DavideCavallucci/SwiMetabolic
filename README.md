@@ -22,5 +22,5 @@
 
 1. Clona il repository:
    ```bash
-   git clone [https://github.com/TUO_UTENTE/SwimMetabolic-Pro.git](https://github.com/TUO_UTENTE/SwimMetabolic-Pro.git)
-   cd SwimMetabolic-Pro
+   git clone [https://github.com/DavideCavallucci/SwiMetabolic.git]
+   cd SwiMetabolic
