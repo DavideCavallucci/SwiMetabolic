@@ -1,4 +1,4 @@
-# 🏊‍♂️ Metabolic Pro | FIN Protocol Edition
+# 🏊‍♂️ Metabolic Pro
 
 **Metabolic Pro** è un'applicazione web avanzata progettata per allenatori di nuoto professionisti. Il software permette di calcolare le zone di allenamento metabolico basandosi sul **Metodo Differenziale del Protocollo FIN** (Settore Istruzione Tecnica).
 
