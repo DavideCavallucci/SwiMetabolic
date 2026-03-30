@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lavagna Tattica PN</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/canvas.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="brand-container">
+            <span class="brand-icon">🤽‍♂️</span>
+            <h1 class="header-title">
+                <span>LAVAGNA TATTICA</span>
+                PALLANUOTO
+            </h1>
+        </div>
+        <div class="tabs-container" id="tabsDock">
+            <div class="nav-indicator" id="navIndicator"></div>
+
+            <button class="tab-btn active" onclick="cambiaScenario('pressing', this)">Pressing</button>
+            <button class="tab-btn" onclick="cambiaScenario('zona_totale', this)">Zona Totale</button>
+            <button class="tab-btn" onclick="cambiaScenario('zona_1_2', this)">Zona 1-2</button>
+            <button class="tab-btn" onclick="cambiaScenario('zona_m', this)">Zona M</button>
+            
+            <button class="tab-btn" onclick="cambiaScenario('uomo_piu_4_2', this)">Più 4-2</button>
+            <button class="tab-btn" onclick="cambiaScenario('uomo_piu_3_3', this)">Più 3-3</button>
+            
+            <button class="tab-btn" onclick="cambiaScenario('controfuga', this)">Controfuga</button>
+            <button class="tab-btn" onclick="cambiaScenario('libera', this)">Libera</button>
+        </div>
+    </header>
+
+    <div class="title-container">
+        <input type="text" id="schema-title" placeholder="Dai un nome allo schema..." autocomplete="off">
+    </div>
+
+    <main>
+        <div id="landscape-warning">
+            <span class="warning-icon">🔄</span>
+            <p>Ruota il dispositivo in orizzontale per usare la lavagna a schermo intero.</p>
+        </div>
+        
+        <div id="canvas-wrapper">
+            <div id="canvas-container">
+                <canvas id="tacticBoard"></canvas>
+            </div>
+            
+            <div class="playbook-wrapper pro-dark">
+                <div id="canvas-flash"></div>
+
+                <div class="pb-bar">
+                    <div class="pb-controls">
+                        <button class="pb-btn btn-capture" onclick="salvaFrame()" title="Acquisisci Frame">
+                            <span class="pb-icon">📸</span> ACQUISISCI
+                        </button>
+                        <button class="pb-btn btn-play" id="btnPlayAnim" onclick="riproduciPlaybook()" title="Riproduci Sequenza">
+                            <span class="pb-icon">▶️</span> PLAY
+                        </button>
+                        <button class="pb-btn btn-reset" onclick="resetPlaybook()" title="Azzera Playbook">
+                            <span class="pb-icon">🗑️</span> RESET
+                        </button>
+                        <button class="pb-btn btn-export" id="btnExportVideo" onclick="esportaVideoPlaybook()" title="Esporta in formato video">
+                            <span class="pb-icon">📹</span> ESPORTA
+                        </button>
+                        <button class="pb-btn btn-present" id="btnPresent" onclick="togglePresentationMode()" title="Modalità Focus">
+                            <span class="pb-icon">📺</span> FOCUS
+                        </button>
+                    </div>
+
+                    <div class="pb-timeline-track" id="timelineDots">
+                        <span class="pb-placeholder">Nessun frame acquisito...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="canvas-actions">
+                <div class="action-group group-left">
+                    <button class="action-btn btn-warning" onclick="pulisciLavagna()">🧹 Pulisci</button>
+                    <button class="action-btn" onclick="annullaUltimo()">↩️ Annulla</button>
+                </div>
+                <div class="action-group group-right">
+                    <button class="action-btn btn-success" onclick="salvaImmagine()">💾 Esporta Schema</button>
+                </div>
+            </div>
+        </div>
+
+        <aside class="control-panel" id="mainSidebar">
+            
+            <div class="tool-section">
+                <div class="tool-section-title">Vista Campo</div>
+                <div class="action-grid">
+                    <button id="btnViewHalf" class="tool-btn active-tool" onclick="impostaVista('meta')">
+                        <span>🌓</span> Metà
+                    </button>
+                    <button id="btnViewFull" class="tool-btn" onclick="impostaVista('intero')">
+                        <span>🌕</span> Intero
+                    </button>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <div class="tool-section-title">Modalità</div>
+                <div class="action-grid">
+                    <button id="btnMuovi" class="tool-btn active-tool" onclick="impostaModalita('muovi')">👆 Muovi</button>
+                    <button id="btnDisegna" class="tool-btn" onclick="impostaModalita('disegna')">✏️ Disegna</button>
+                    <button id="btnFreccia" class="tool-btn" onclick="impostaModalita('freccia')">↗️ Freccia</button>
+                    <button id="btnCurva" class="tool-btn" onclick="impostaModalita('curva')">↩️ Curva</button>
+                </div>
+            </div>
+
+            <div class="tool-section style-controls">
+                <div class="tool-section-title">Tratto & Stile</div>
+                <div class="color-picker-grid">
+                    <div class="color-swatch active-color" style="background-color: #0c4a6e;" onclick="cambiaColore('#0c4a6e', this)"></div>
+                    <div class="color-swatch" style="background-color: #f3ca12;" onclick="cambiaColore('#f3ca12', this)"></div>
+                    <div class="color-swatch" style="background-color: #ef4444;" onclick="cambiaColore('#ef4444', this)"></div>
+                    <div class="color-swatch" style="background-color: #10b981;" onclick="cambiaColore('#10b981', this)"></div>
+                </div>
+                <div class="action-grid">
+                    <button id="btnSolid" class="tool-btn active-tool" onclick="impostaStileLinea(false)">-- Continua</button>
+                    <button id="btnDashed" class="tool-btn" onclick="impostaStileLinea(true)">- - Tratteggia</button>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <div class="tool-section-title">Oggetti</div>
+                <div class="action-grid">
+                    <button class="tool-btn" onclick="aggiungiPalla()">🏐 Palla</button>
+                    <button class="tool-btn" onclick="aggiungiTesto()">A Testo</button>
+                    <button class="tool-btn" onclick="aggiungiCono()">🔺 Cono</button>
+                    <button class="tool-btn" onclick="aggiungiBersaglio()">🎯 Target</button>
+                </div>
+            </div>
+            
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <span class="footer-brand">LAVAGNA TATTICA PN</span>
+                <p class="footer-slogan">Il software di analisi d'élite sviluppato dal Circolo Nuoto Lucca.</p>
+                <div class="footer-copy">
+                    &copy; <span id="currentYear"></span> ALL RIGHTS RESERVED.
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <a href="https://github.com/DavideCavallucci" target="_blank">
+                    <i class="icon">📂</i> GITHUB
+                </a>
+                <a href="https://www.circolonuotolucca.com" target="_blank">
+                    <i class="icon">🤽‍♂️</i> CN LUCCA
+                </a>
+            </div>
+
+            <div class="footer-right">
+                <div class="version-badge">
+                    <span class="status-dot"></span>
+                    V4.0 - ONLINE
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/globals.js"></script>
+    <script src="js/drawings.js"></script>
+    <script src="js/elements.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/tactics.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/playbook.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
